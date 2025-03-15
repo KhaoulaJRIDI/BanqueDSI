@@ -1,7 +1,8 @@
-package app.banque.repositories;
+package app.banque.banquedsi.repositories;
 
 
-import app.banque.entities.CompteCourant;
+
+import app.banque.banquedsi.entities.CompteCourant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CompteCourantRepository extends JpaRepository<CompteCourant,String> {

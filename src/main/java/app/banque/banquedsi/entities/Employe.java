@@ -1,4 +1,4 @@
-package app.banque.entities;
+package app.banque.banquedsi.entities;
 
 import jakarta.persistence.*;
 

@@ -1,11 +1,14 @@
-package app.banque.controllers;
+package app.banque.banquedsi.controllers;
 
-import app.banque.entities.Client;
-import app.banque.repositories.ClientRepository;
+
+import app.banque.banquedsi.entities.Client;
+import app.banque.banquedsi.entities.Compte;
+import app.banque.banquedsi.exceptions.ClientNotFoundException;
+import app.banque.banquedsi.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +19,9 @@ public class ClientController {
 
     @Autowired
     public ClientController(ClientRepository clientRepository) {
+
         this.clientRepository = clientRepository;
     }
-
 
 
     @GetMapping("allClients")
@@ -28,26 +31,32 @@ public class ClientController {
     }
 
     @PostMapping("client")
-    @ResponseBody
-    public ResponseEntity<Client> addClient(@RequestBody Client client) {
-      Client savedClient=   clientRepository.save(client);
-        return ResponseEntity.status(201).body(savedClient);
+    public Client addClient(@RequestBody Client client) {
+        return clientRepository.save(client);
+
 
     }
-    @DeleteMapping("deleteClient")
-    public void deleteClient(@RequestBody Client client)
-    {
-        clientRepository.delete(client);
-    }
+
 
     @GetMapping("clientById")
-    public Optional<Client> getClientById(@RequestParam("id") Long id) {
-        return clientRepository.findById(id);
+    public Client getClientById(@RequestParam("id") Long id) {
+
+        return clientRepository.findById(id)
+                .orElseThrow(() -> new ClientNotFoundException(id));
     }
 
 
-    @GetMapping("clientByName")
-    public Client getClientByName(@PathVariable("name") String name) {
+    @GetMapping("/clients/{id}")
+    Client one(@PathVariable Long id) {
+
+        return clientRepository.findById(id)
+                .orElseThrow(() -> new ClientNotFoundException(id));
+    }
+
+
+    @GetMapping("clientByName/{name}")
+    public Collection<Client> getClientByName(@PathVariable("name") String name) {
+
         return clientRepository.findByNomClient(name);
     }
 
@@ -56,4 +65,27 @@ public class ClientController {
         return clientRepository.save(client);
 
     }
+
+    @PutMapping("/clients/{id}")
+    Client replaceClient(@RequestBody Client client, @PathVariable Long id) {
+
+        return clientRepository.findById(id)
+                .map(newClient -> {
+                    newClient.setNomClient(client.getNomClient());
+                    newClient.setEmailClient(client.getEmailClient());
+                    newClient.setAdresseClient(client.getAdresseClient());
+                    return clientRepository.save(newClient);
+                })
+                .orElseGet(() -> {
+                    client.setCodeClient(id);
+                    return clientRepository.save(client);
+                });
+    }
+
+    @DeleteMapping("/clients/{id}")
+    void deleteClient(@PathVariable Long id) {
+        clientRepository.deleteById(id);
+    }
+
+
 }

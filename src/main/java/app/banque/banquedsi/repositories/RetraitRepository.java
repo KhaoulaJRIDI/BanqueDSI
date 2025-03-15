@@ -1,6 +1,7 @@
-package app.banque.repositories;
+package app.banque.banquedsi.repositories;
 
-import app.banque.entities.Retrait;
+
+import app.banque.banquedsi.entities.Retrait;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

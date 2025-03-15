@@ -1,4 +1,4 @@
-package app.banque.entities;
+package app.banque.banquedsi.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-import java.io.Serializable;
 import java.util.List;
 
 
@@ -19,7 +17,7 @@ import java.util.List;
 
 public class Client {
    @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codeClient;
     private String nomClient;
     private String adresseClient;

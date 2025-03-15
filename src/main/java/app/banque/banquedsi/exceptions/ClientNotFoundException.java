@@ -1,8 +1,8 @@
-package app.gestion.banque.exceptions;
+package app.banque.banquedsi.exceptions;
 
-public class FournisseurNotFoundException extends RuntimeException{
-    public FournisseurNotFoundException(Long id) {
-        super("Could not find fournisseur " + id);
+public class ClientNotFoundException extends RuntimeException{
+    public ClientNotFoundException(Long codeClient) {
+        super("Could not find Client " + codeClient);
     }
 
 }

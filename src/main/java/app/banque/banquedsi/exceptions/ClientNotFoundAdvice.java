@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 @ControllerAdvice
-public class FournisseurNotFoundAdvice {
+public class ClientNotFoundAdvice {
 
     @ResponseBody
     @ExceptionHandler(ClientNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String fournisseurNotFoundHandler(ClientNotFoundException ex) {
+    String ClientNotFoundHandler(ClientNotFoundException ex) {
         return ex.getMessage();
     }
 

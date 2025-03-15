@@ -1,6 +1,7 @@
-package app.banque.repositories;
+package app.banque.banquedsi.repositories;
 
-import app.banque.entities.Operation;
+
+import app.banque.banquedsi.entities.Operation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
